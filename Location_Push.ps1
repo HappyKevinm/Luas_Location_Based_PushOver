@@ -155,7 +155,14 @@ do
             $pushovermessage = $null
             foreach ($luastime in $luastimes)
             {
-                $pushovermessage = $pushovermessage + "$(($luastime.Destination).trim("LUAS ")) in $($luastime.duetime)`n"
+                if ($luastime.duetime.toLower() -eq "due")
+                {
+                    $pushovermessage = $pushovermessage + "$(($luastime.Destination).trim("LUAS ")) ARRIVING`n"
+                }
+                else
+                {
+                    $pushovermessage = $pushovermessage + "$(($luastime.Destination).trim("LUAS ")) in $($luastime.duetime)`n"
+                }
             }
             write-host -ForegroundColor green "The pushover message is :" 
             write-host -ForegroundColor Magenta "$($pushovermessage)"
